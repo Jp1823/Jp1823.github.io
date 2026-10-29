@@ -11,12 +11,17 @@ const { lang } = Astro.props;
 const t = useT(lang);
 const cv = await getCv(lang);
 
-const period = (start: string, end?: string) => `${start} — ${end ?? t('cv.present')}`;
+const period = (start: string, end?: string) => `${start} → ${end ?? t('cv.present')}`;
 
-const timeline = [
-	{ key: 'cv.experience', items: cv.experience },
-	{ key: 'cv.education', items: cv.education },
-] as const;
+// Secções vazias (ex.: sem experiência) não aparecem e a numeração ajusta-se.
+const timeline = (
+	[
+		{ key: 'cv.experience', items: cv.experience },
+		{ key: 'cv.education', items: cv.education },
+	] as const
+).filter(({ items }) => items.length > 0);
+
+const num = (n: number) => `${String(n).padStart(2, '0')} /`;
 ---
 
 <Base lang={lang} title={t('cv.title')} page="cv">
@@ -28,32 +33,29 @@ const timeline = [
 	</header>
 
 	{
-		timeline.map(
-			({ key, items }, i) =>
-				items.length > 0 && (
-					<section>
-						<h2 class="label">
-							<span class="accent">{String(i + 1).padStart(2, '0')} /</span> {t(key)}
-						</h2>
-						<ol class="timeline">
-							{items.map((item) => (
-								<li>
-									<span class="when">{period(item.start, item.end)}</span>
-									<div>
-										<h3>{item.title}</h3>
-										<p class="org">{item.org}</p>
-										{item.description && <p>{item.description}</p>}
-									</div>
-								</li>
-							))}
-						</ol>
-					</section>
-				),
-		)
+		timeline.map(({ key, items }, i) => (
+			<section>
+				<h2 class="label">
+					<span class="accent">{num(i + 1)}</span> {t(key)}
+				</h2>
+				<ol class="timeline">
+					{items.map((item) => (
+						<li>
+							<span class="when">{period(item.start, item.end)}</span>
+							<div>
+								<h3>{item.title}</h3>
+								<p class="org">{item.org}</p>
+								{item.description && <p>{item.description}</p>}
+							</div>
+						</li>
+					))}
+				</ol>
+			</section>
+		))
 	}
 
 	<section>
-		<h2 class="label"><span class="accent">03 /</span> {t('cv.skills')}</h2>
+		<h2 class="label"><span class="accent">{num(timeline.length + 1)}</span> {t('cv.skills')}</h2>
 		<dl class="grid">
 			{
 				cv.skills.map((skill) => (
@@ -73,7 +75,7 @@ const timeline = [
 	</section>
 
 	<section>
-		<h2 class="label"><span class="accent">04 /</span> {t('cv.languages')}</h2>
+		<h2 class="label"><span class="accent">{num(timeline.length + 2)}</span> {t('cv.languages')}</h2>
 		<dl class="grid">
 			{
 				cv.languages.map((language) => (

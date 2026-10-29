@@ -11,7 +11,7 @@ order: 2
 
 ## Contexto
 
-Trabalho prático da UC de Dados e Aprendizagem Automática, enquadrado num desafio Kaggle: analisar correlações em dados de ressonância magnética consoante o estágio do paciente — **cognitivamente normal (CN)**, **défice cognitivo ligeiro (MCI)** ou **doença de Alzheimer (AD)**.
+Trabalho prático da UC de Dados e Aprendizagem Automática, enquadrado num desafio Kaggle. O objetivo era analisar correlações em dados de ressonância magnética consoante o estágio do paciente: **cognitivamente normal (CN)**, **défice cognitivo ligeiro (MCI)** ou **doença de Alzheimer (AD)**.
 
 ## Abordagem
 

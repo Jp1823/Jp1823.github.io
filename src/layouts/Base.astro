@@ -18,7 +18,7 @@ const { lang, title, page, alternate } = Astro.props;
 const t = useT(lang);
 const description = Astro.props.description ?? t('site.description');
 const siteName = 'João Abreu';
-const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const alternateUrl = alternate ? new URL(alternate, Astro.site) : undefined;

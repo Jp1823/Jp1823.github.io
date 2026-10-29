@@ -1,6 +1,6 @@
 {
 	"name": "João Abreu",
-	"role": "Computer Engineering · Networks and Distributed Systems",
+	"role": "Computer Engineering",
 	"location": "Braga, Portugal",
 	"intro": [
 		"MSc student in Informatics Engineering at the University of Minho, specialising in Next Generation Networks.",
@@ -11,25 +11,18 @@
 		{ "label": "linkedin", "url": "https://www.linkedin.com/in/PREENCHER" },
 		{ "label": "email", "url": "mailto:PREENCHER@exemplo.com" }
 	],
-	"experience": [
-		{
-			"title": "Role (fill in)",
-			"org": "Company / Organisation",
-			"start": "2025-09",
-			"description": "Short description of what you did and its impact. Delete this entry if you have no experience to show yet."
-		}
-	],
+	"experience": [],
 	"education": [
 		{
-			"title": "MSc in Informatics Engineering — Next Generation Networks",
+			"title": "MSc in Informatics Engineering",
 			"org": "University of Minho",
 			"start": "2024-09"
 		},
 		{
-			"title": "BSc in Informatics Engineering",
+			"title": "BSc in Engineering and Management of Information Systems",
 			"org": "University of Minho",
 			"start": "2021-09",
-			"end": "2024-07"
+			"end": "2024-06"
 		}
 	],
 	"skills": [
@@ -40,6 +33,6 @@
 	],
 	"languages": [
 		{ "name": "Portuguese", "level": "native" },
-		{ "name": "English", "level": "fluent" }
+		{ "name": "English", "level": "intermediate" }
 	]
 }

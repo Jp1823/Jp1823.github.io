@@ -4,7 +4,7 @@ Site pessoal (portfólio + CV), feito com [Astro](https://docs.astro.build) e pu
 
 ## Como funciona
 
-O Astro transforma as páginas e o conteúdo (Markdown/JSON) em HTML estático na pasta `dist/`. Não há servidor nem base de dados: é isso que o GitHub Pages serve. Cada `git push` para `main` faz o build e publica automaticamente (`.github/workflows/deploy.yml`, ~1–2 min).
+O Astro transforma as páginas e o conteúdo (Markdown/JSON) em HTML estático na pasta `dist/`. Não há servidor nem base de dados: é isso que o GitHub Pages serve. Cada `git push` para `main` faz o build e publica automaticamente (`.github/workflows/deploy.yml`, 1 a 2 min).
 
 ## Node.js local
 
@@ -36,7 +36,7 @@ summary: Uma frase sobre o que é.
 year: 2025
 context: UMinho · UC          # opcional
 stack: [Python, Docker]
-repo: https://github.com/Jp1823/repo   # opcional — sem repo aparece "código privado"
+repo: https://github.com/Jp1823/repo   # opcional; sem repo aparece "código privado"
 demo: https://...                      # opcional
 featured: true                # aparece no início (máx. 3)
 order: 1                      # opcional, ordem na lista

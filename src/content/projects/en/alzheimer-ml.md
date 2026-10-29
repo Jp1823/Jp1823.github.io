@@ -11,7 +11,7 @@ order: 2
 
 ## Context
 
-Coursework for the Data and Machine Learning course, framed as a Kaggle challenge: analyse correlations in MRI data depending on the patient's stage — **cognitively normal (CN)**, **mild cognitive impairment (MCI)** or **Alzheimer's disease (AD)**.
+Coursework for the Data and Machine Learning course, framed as a Kaggle challenge. The goal was to analyse correlations in MRI data depending on the patient's stage: **cognitively normal (CN)**, **mild cognitive impairment (MCI)** or **Alzheimer's disease (AD)**.
 
 ## Approach
 

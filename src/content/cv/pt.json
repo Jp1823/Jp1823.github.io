@@ -1,6 +1,6 @@
 {
 	"name": "João Abreu",
-	"role": "Engenharia Informática · Redes e Sistemas Distribuídos",
+	"role": "Engenharia Informática",
 	"location": "Braga, Portugal",
 	"intro": [
 		"Estudante de Mestrado em Engenharia Informática na Universidade do Minho, no perfil de Redes de Nova Geração.",
@@ -11,25 +11,18 @@
 		{ "label": "linkedin", "url": "https://www.linkedin.com/in/PREENCHER" },
 		{ "label": "email", "url": "mailto:PREENCHER@exemplo.com" }
 	],
-	"experience": [
-		{
-			"title": "Cargo (preencher)",
-			"org": "Empresa / Organização",
-			"start": "2025-09",
-			"description": "Descrição curta do que fizeste e do impacto. Apaga esta entrada se ainda não tiveres experiência a mostrar."
-		}
-	],
+	"experience": [],
 	"education": [
 		{
-			"title": "Mestrado em Engenharia Informática — perfil Redes de Nova Geração",
+			"title": "Mestrado em Engenharia Informática",
 			"org": "Universidade do Minho",
 			"start": "2024-09"
 		},
 		{
-			"title": "Licenciatura em Engenharia Informática",
+			"title": "Licenciatura em Engenharia e Gestão de Sistemas de Informação",
 			"org": "Universidade do Minho",
 			"start": "2021-09",
-			"end": "2024-07"
+			"end": "2024-06"
 		}
 	],
 	"skills": [
@@ -40,6 +33,6 @@
 	],
 	"languages": [
 		{ "name": "Português", "level": "nativo" },
-		{ "name": "Inglês", "level": "fluente" }
+		{ "name": "Inglês", "level": "intermédio" }
 	]
 }

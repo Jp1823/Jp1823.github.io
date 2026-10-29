@@ -9,17 +9,17 @@ featured: true
 order: 3
 ---
 
-## Phase 1 — Access technologies and packet analysis
+## Phase 1: Access technologies and packet analysis
 
 Selection and evaluation of an access technology integrated into a test topology in the **CORE** emulator. Several scenarios analysed with `iperf`, `ping` and `traceroute` to compare traffic performance.
 
-## Phase 2 — MPLS and traffic engineering
+## Phase 2: MPLS and traffic engineering
 
 An **MPLS** topology in **EVE-NG**, with customer edge devices (CE), provider edge routers (PE/LER) and core routers (P/LSR) doing label switching.
 
 - Traffic engineering with **ACLs** and **Policy-Based Routing**, building separate tunnels for different kinds of traffic (e.g. HTTP and UDP).
 - Result: differentiated forwarding paths within the network.
 
-## Phase 3
+## Phase 3: Mobile networks
 
-A third phase on mobile networks — see the repository for details.
+A third phase on mobile networks. Details are in the repository.
