@@ -1,0 +1,45 @@
+{
+	"name": "João Abreu",
+	"role": "Engenharia Informática · Redes e Sistemas Distribuídos",
+	"location": "Braga, Portugal",
+	"intro": [
+		"Estudante de Mestrado em Engenharia Informática na Universidade do Minho, no perfil de Redes de Nova Geração.",
+		"Interesso-me por redes, comunicações veiculares, sistemas distribuídos e aprendizagem automática aplicada."
+	],
+	"links": [
+		{ "label": "github", "url": "https://github.com/Jp1823" },
+		{ "label": "linkedin", "url": "https://www.linkedin.com/in/PREENCHER" },
+		{ "label": "email", "url": "mailto:PREENCHER@exemplo.com" }
+	],
+	"experience": [
+		{
+			"title": "Cargo (preencher)",
+			"org": "Empresa / Organização",
+			"start": "2025-09",
+			"description": "Descrição curta do que fizeste e do impacto. Apaga esta entrada se ainda não tiveres experiência a mostrar."
+		}
+	],
+	"education": [
+		{
+			"title": "Mestrado em Engenharia Informática — perfil Redes de Nova Geração",
+			"org": "Universidade do Minho",
+			"start": "2024-09"
+		},
+		{
+			"title": "Licenciatura em Engenharia Informática",
+			"org": "Universidade do Minho",
+			"start": "2021-09",
+			"end": "2024-07"
+		}
+	],
+	"skills": [
+		{ "group": "linguagens", "items": ["Java", "Python", "C"] },
+		{ "group": "redes", "items": ["MPLS", "V2X", "CORE", "EVE-NG", "Eclipse MOSAIC", "SUMO"] },
+		{ "group": "dados / ML", "items": ["pandas", "scikit-learn", "Jupyter"] },
+		{ "group": "ferramentas", "items": ["Git", "Linux"] }
+	],
+	"languages": [
+		{ "name": "Português", "level": "nativo" },
+		{ "name": "Inglês", "level": "fluente" }
+	]
+}

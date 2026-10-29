@@ -1,0 +1,102 @@
+---
+import { pathTo, type Lang } from '../i18n/ui';
+import { slugOf, type Project } from '../lib/content';
+
+interface Props {
+	lang: Lang;
+	projects: Project[];
+}
+
+const { lang, projects } = Astro.props;
+---
+
+<ol class="projects">
+	{
+		projects.map((project, i) => (
+			<li>
+				<a href={pathTo(lang, 'projects', slugOf(project))}>
+					<span class="index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+					<span class="body">
+						<span class="head">
+							<span class="title">{project.data.title}</span>
+							<span class="year">{project.data.year}</span>
+						</span>
+						<span class="summary">{project.data.summary}</span>
+						{project.data.stack.length > 0 && (
+							<span class="stack">{project.data.stack.join(' · ')}</span>
+						)}
+					</span>
+				</a>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.projects {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--line);
+	}
+
+	li {
+		border-bottom: 1px solid var(--line);
+	}
+
+	a {
+		display: grid;
+		grid-template-columns: 2.5rem 1fr;
+		gap: 0.75rem;
+		padding: 1.25rem 0;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.index {
+		font-family: var(--mono);
+		font-size: 0.8125rem;
+		color: var(--muted);
+		padding-top: 0.15rem;
+		transition: color 0.15s;
+	}
+
+	.body {
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1rem;
+	}
+
+	.title {
+		font-family: var(--mono);
+		font-weight: 700;
+		color: var(--text-strong);
+		transition: color 0.15s;
+	}
+
+	.year,
+	.stack {
+		font-family: var(--mono);
+		font-size: 0.8125rem;
+		color: var(--muted);
+	}
+
+	.year {
+		flex-shrink: 0;
+	}
+
+	.summary {
+		max-width: var(--measure);
+	}
+
+	a:hover .title,
+	a:hover .index {
+		color: var(--accent);
+	}
+</style>

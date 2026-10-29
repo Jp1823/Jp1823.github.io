@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jp1823.github.io/sitemap-index.xml

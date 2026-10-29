@@ -1,0 +1,30 @@
+---
+// A raiz escolhe a língua: inglês se o browser não estiver em português, senão PT.
+import { pathTo } from '../i18n/ui';
+
+const pt = pathTo('pt', 'home');
+const en = pathTo('en', 'home');
+---
+
+<!doctype html>
+<html lang="pt-PT">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>João Abreu</title>
+		<meta name="robots" content="noindex" />
+		<meta http-equiv="refresh" content={`0; url=${pt}`} />
+		<link rel="canonical" href={new URL(pt, Astro.site)} />
+		<script is:inline define:vars={{ pt, en }}>
+			const prefersPt = (navigator.languages || [navigator.language]).some((l) => /^pt\b/i.test(l));
+			location.replace(prefersPt ? pt : en);
+		</script>
+		<style>
+			body { background: #0b0c0e; color: #d6d6d2; font-family: monospace; padding: 2rem; }
+			a { color: #ffb454; }
+		</style>
+	</head>
+	<body>
+		<p><a href={pt}>português</a> · <a href={en}>english</a></p>
+	</body>
+</html>

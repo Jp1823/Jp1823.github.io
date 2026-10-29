@@ -1,0 +1,87 @@
+---
+import { languages, otherLang, pathTo, useT, type Lang, type PageKey } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	page?: PageKey;
+	alternate?: string;
+}
+
+const { lang, page, alternate } = Astro.props;
+const t = useT(lang);
+const other = otherLang(lang);
+const items: PageKey[] = ['projects', 'cv'];
+---
+
+<header class="wrap">
+	<a class="brand" href={pathTo(lang, 'home')} aria-current={page === 'home' ? 'page' : undefined}>
+		<span class="accent">~/</span>joao-abreu
+	</a>
+	<nav aria-label={lang === 'pt' ? 'Principal' : 'Main'}>
+		<ul>
+			{
+				items.map((item) => (
+					<li>
+						<a href={pathTo(lang, item)} aria-current={page === item ? 'page' : undefined}>
+							{t(`nav.${item}`)}
+						</a>
+					</li>
+				))
+			}
+			<li class="lang">
+				<a href={alternate ?? pathTo(other, page ?? 'home')} hreflang={languages[other].htmlLang} title={t('nav.switch')}>
+					<span class="current">{languages[lang].label}</span>/<span>{languages[other].label}</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+<style>
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--line);
+		font-family: var(--mono);
+		font-size: 0.875rem;
+	}
+
+	a {
+		text-decoration: none;
+		color: var(--muted);
+	}
+
+	a:hover,
+	a[aria-current='page'] {
+		color: var(--text-strong);
+	}
+
+	a[aria-current='page']::before {
+		content: '> ';
+		color: var(--accent);
+	}
+
+	.brand {
+		color: var(--text-strong);
+		white-space: nowrap;
+	}
+
+	.brand[aria-current='page']::before {
+		content: none;
+	}
+
+	ul {
+		display: flex;
+		gap: clamp(0.875rem, 3vw, 1.75rem);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.lang .current {
+		color: var(--accent);
+	}
+</style>

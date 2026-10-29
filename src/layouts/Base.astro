@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { languages, otherLang, useT, type Lang, type PageKey } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	title: string;
+	description?: string;
+	/** Página atual, para o menu e para o link de idioma. */
+	page?: PageKey;
+	/** URL equivalente na outra língua (gerado automaticamente se omitido). */
+	alternate?: string;
+}
+
+const { lang, title, page, alternate } = Astro.props;
+const t = useT(lang);
+const description = Astro.props.description ?? t('site.description');
+const siteName = 'João Abreu';
+const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const alternateUrl = alternate ? new URL(alternate, Astro.site) : undefined;
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang={languages[lang].htmlLang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#0b0c0e" />
+		<link rel="canonical" href={canonical} />
+		{alternateUrl && <link rel="alternate" hreflang={languages[otherLang(lang)].htmlLang} href={alternateUrl} />}
+		{alternateUrl && <link rel="alternate" hreflang={languages[lang].htmlLang} href={canonical} />}
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+		<link rel="sitemap" href={`${base}sitemap-index.xml`} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content={languages[lang].ogLocale} />
+		<meta name="twitter:card" content="summary" />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">{t('skip')}</a>
+		<Nav lang={lang} page={page} alternate={alternate} />
+		<main id="main" class="wrap">
+			<slot />
+		</main>
+		<Footer lang={lang} />
+	</body>
+</html>
+
+<style>
+	body {
+		min-height: 100vh;
+		min-height: 100dvh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	main {
+		flex: 1;
+		padding-block: clamp(2.5rem, 8vw, 5rem);
+	}
+</style>

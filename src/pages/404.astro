@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { pathTo, ui } from '../i18n/ui';
+---
+
+<Base lang="pt" title={ui.pt['404.title']}>
+	<p class="label"><span class="accent">404</span> · not found</p>
+	<h1>{ui.pt['404.title']}</h1>
+	<p>{ui.pt['404.text']} <span lang="en" class="muted">{ui.en['404.text']}</span></p>
+	<p class="mono">
+		<a href={pathTo('pt', 'home')}>← {ui.pt['404.back']}</a> · <a href={pathTo('en', 'home')} lang="en">{ui.en['404.back']}</a>
+	</p>
+</Base>
+
+<style>
+	h1 {
+		font-size: clamp(1.75rem, 5vw, 2.25rem);
+		margin: 0.5rem 0 1.25rem;
+	}
+
+	.muted {
+		display: block;
+		color: var(--muted);
+	}
+
+	.mono {
+		font-size: 0.875rem;
+		margin-top: 2rem;
+	}
+</style>

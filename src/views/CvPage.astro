@@ -1,0 +1,193 @@
+---
+import Base from '../layouts/Base.astro';
+import { useT, type Lang } from '../i18n/ui';
+import { getCv, withBase } from '../lib/content';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useT(lang);
+const cv = await getCv(lang);
+
+const period = (start: string, end?: string) => `${start} — ${end ?? t('cv.present')}`;
+
+const timeline = [
+	{ key: 'cv.experience', items: cv.experience },
+	{ key: 'cv.education', items: cv.education },
+] as const;
+---
+
+<Base lang={lang} title={t('cv.title')} page="cv">
+	<header class="page-head">
+		<p class="label"><span class="accent">~/</span>cv</p>
+		<h1>{cv.name}</h1>
+		<p class="role">{cv.role} · {cv.location}</p>
+		{cv.pdf && <a class="pdf" href={withBase(cv.pdf)} download>↓ {t('cv.download')}</a>}
+	</header>
+
+	{
+		timeline.map(
+			({ key, items }, i) =>
+				items.length > 0 && (
+					<section>
+						<h2 class="label">
+							<span class="accent">{String(i + 1).padStart(2, '0')} /</span> {t(key)}
+						</h2>
+						<ol class="timeline">
+							{items.map((item) => (
+								<li>
+									<span class="when">{period(item.start, item.end)}</span>
+									<div>
+										<h3>{item.title}</h3>
+										<p class="org">{item.org}</p>
+										{item.description && <p>{item.description}</p>}
+									</div>
+								</li>
+							))}
+						</ol>
+					</section>
+				),
+		)
+	}
+
+	<section>
+		<h2 class="label"><span class="accent">03 /</span> {t('cv.skills')}</h2>
+		<dl class="grid">
+			{
+				cv.skills.map((skill) => (
+					<div>
+						<dt>{skill.group}</dt>
+						<dd>
+							<ul class="tags">
+								{skill.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</dd>
+					</div>
+				))
+			}
+		</dl>
+	</section>
+
+	<section>
+		<h2 class="label"><span class="accent">04 /</span> {t('cv.languages')}</h2>
+		<dl class="grid">
+			{
+				cv.languages.map((language) => (
+					<div>
+						<dt>{language.name}</dt>
+						<dd>{language.level}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</section>
+</Base>
+
+<style>
+	.page-head {
+		margin-bottom: 3rem;
+	}
+
+	h1 {
+		font-size: clamp(1.75rem, 5vw, 2.25rem);
+		margin: 0.5rem 0 0.75rem;
+	}
+
+	.role {
+		font-family: var(--mono);
+		font-size: 0.9375rem;
+		color: var(--muted);
+	}
+
+	.pdf {
+		display: inline-block;
+		margin-top: 0.5rem;
+		padding: 0.45rem 0.9rem;
+		border: 1px solid var(--accent);
+		color: var(--accent);
+		font-family: var(--mono);
+		font-size: 0.8125rem;
+		text-decoration: none;
+	}
+
+	.pdf:hover {
+		background: var(--accent);
+		color: var(--bg);
+	}
+
+	section {
+		margin-bottom: 3rem;
+	}
+
+	h2 {
+		font-weight: 400;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid var(--line);
+		margin-bottom: 1.25rem;
+	}
+
+	.timeline {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 1.75rem;
+	}
+
+	.timeline li {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 1rem;
+	}
+
+	.when {
+		font-family: var(--mono);
+		font-size: 0.8125rem;
+		color: var(--muted);
+		padding-top: 0.15rem;
+	}
+
+	h3 {
+		font-size: 1rem;
+	}
+
+	.org {
+		color: var(--muted);
+		margin-bottom: 0.4rem;
+	}
+
+	.grid {
+		display: grid;
+		gap: 0.75rem;
+		margin: 0;
+	}
+
+	.grid div {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 1rem;
+		align-items: baseline;
+	}
+
+	dt {
+		font-family: var(--mono);
+		font-size: 0.8125rem;
+		color: var(--muted);
+	}
+
+	dd {
+		margin: 0;
+	}
+
+	@media (max-width: 40rem) {
+		.timeline li,
+		.grid div {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
+	}
+</style>

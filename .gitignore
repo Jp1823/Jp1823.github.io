@@ -1,0 +1,21 @@
+# Node portátil local (não vai para o GitHub)
+.node/
+
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# editor / SO
+.DS_Store
+.idea/

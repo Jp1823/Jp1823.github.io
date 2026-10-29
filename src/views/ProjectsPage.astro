@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectList from '../components/ProjectList.astro';
+import { useT, type Lang } from '../i18n/ui';
+import { getProjects } from '../lib/content';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useT(lang);
+const projects = await getProjects(lang);
+---
+
+<Base lang={lang} title={t('projects.title')} page="projects">
+	<header class="page-head">
+		<p class="label"><span class="accent">~/</span>{t('nav.projects')}</p>
+		<h1>{t('projects.title')}</h1>
+		<p>{t('projects.intro')}</p>
+	</header>
+	<ProjectList lang={lang} projects={projects} />
+</Base>
+
+<style>
+	.page-head {
+		margin-bottom: 2.5rem;
+	}
+
+	h1 {
+		font-size: clamp(1.75rem, 5vw, 2.25rem);
+		margin: 0.5rem 0 1rem;
+	}
+
+	.page-head p:last-child {
+		color: var(--muted);
+	}
+</style>

@@ -1,0 +1,130 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { otherLang, pathTo, useT, type Lang } from '../i18n/ui';
+import { getProjects, slugOf, type Project } from '../lib/content';
+
+interface Props {
+	lang: Lang;
+	project: Project;
+}
+
+const { lang, project } = Astro.props;
+const t = useT(lang);
+const { Content } = await render(project);
+const { title, summary, year, context, stack, repo, demo } = project.data;
+
+// Link de idioma: a versão traduzida do mesmo projeto, se existir.
+const other = otherLang(lang);
+const slug = slugOf(project);
+const translated = (await getProjects(other)).some((p) => slugOf(p) === slug);
+const alternate = translated ? pathTo(other, 'projects', slug) : pathTo(other, 'projects');
+---
+
+<Base lang={lang} title={title} description={summary} page="projects" alternate={alternate}>
+	<article>
+		<p class="label back">
+			<a href={pathTo(lang, 'projects')}>← {t('projects.back')}</a>
+		</p>
+		<header>
+			<h1>{title}</h1>
+			<p class="summary">{summary}</p>
+			<dl class="meta">
+				<div>
+					<dt>{lang === 'pt' ? 'ano' : 'year'}</dt>
+					<dd>{year}</dd>
+				</div>
+				{
+					context && (
+						<div>
+							<dt>{lang === 'pt' ? 'contexto' : 'context'}</dt>
+							<dd>{context}</dd>
+						</div>
+					)
+				}
+				{
+					stack.length > 0 && (
+						<div>
+							<dt>stack</dt>
+							<dd>
+								<ul class="tags">
+									{stack.map((item) => (
+										<li>{item}</li>
+									))}
+								</ul>
+							</dd>
+						</div>
+					)
+				}
+				<div>
+					<dt>links</dt>
+					<dd class="links">
+						{repo ? <a href={repo}>{t('projects.repo')} ↗</a> : <span>{t('projects.private')}</span>}
+						{demo && <a href={demo}>{t('projects.demo')} ↗</a>}
+					</dd>
+				</div>
+			</dl>
+		</header>
+		<div class="prose">
+			<Content />
+		</div>
+	</article>
+</Base>
+
+<style>
+	.back {
+		margin-bottom: 2rem;
+	}
+
+	.back a {
+		color: var(--muted);
+		text-decoration: none;
+	}
+
+	.back a:hover {
+		color: var(--accent);
+	}
+
+	h1 {
+		font-size: clamp(1.5rem, 5vw, 2.25rem);
+		margin-bottom: 1rem;
+	}
+
+	.summary {
+		font-size: 1.125rem;
+	}
+
+	.meta {
+		display: grid;
+		gap: 0.6rem;
+		margin: 2rem 0 1rem;
+		padding: 1.25rem 0;
+		border-block: 1px solid var(--line);
+		font-family: var(--mono);
+		font-size: 0.8125rem;
+	}
+
+	.meta div {
+		display: grid;
+		grid-template-columns: 6.5rem 1fr;
+		gap: 1rem;
+		align-items: baseline;
+	}
+
+	dt {
+		color: var(--muted);
+	}
+
+	dd {
+		margin: 0;
+	}
+
+	.links {
+		display: flex;
+		gap: 1.25rem;
+	}
+
+	.links span {
+		color: var(--muted);
+	}
+</style>
