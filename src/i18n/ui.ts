@@ -49,7 +49,6 @@ export const ui = {
 		'404.title': 'Página não encontrada',
 		'404.text': 'Este endereço não existe ou mudou de sítio.',
 		'404.back': 'voltar ao início',
-		'footer.source': 'código-fonte',
 	},
 	en: {
 		'site.description': 'Computer engineering, networks and distributed systems. Portfolio and CV.',
@@ -77,7 +76,6 @@ export const ui = {
 		'404.title': 'Page not found',
 		'404.text': 'This address does not exist or has moved.',
 		'404.back': 'back to home',
-		'footer.source': 'source',
 	},
 } as const;
 

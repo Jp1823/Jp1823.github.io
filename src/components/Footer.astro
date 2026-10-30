@@ -1,18 +1,10 @@
 ---
-import { useT, type Lang } from '../i18n/ui';
-
-interface Props {
-	lang: Lang;
-}
-
-const t = useT(Astro.props.lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="wrap">
 	<span>© {year} João Abreu</span>
 	<span>Braga, PT</span>
-	<a href="https://github.com/Jp1823/Jp1823.github.io">{t('footer.source')}</a>
 </footer>
 
 <style>
@@ -25,10 +17,5 @@ const year = new Date().getFullYear();
 		font-family: var(--mono);
 		font-size: 0.75rem;
 		color: var(--muted);
-	}
-
-	a {
-		color: var(--muted);
-		margin-left: auto;
 	}
 </style>

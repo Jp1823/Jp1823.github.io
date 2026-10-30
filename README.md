@@ -1,71 +1,85 @@
 # jp1823.github.io
 
-Site pessoal (portfólio + CV), feito com [Astro](https://docs.astro.build) e publicado no GitHub Pages.
+Personal website and portfolio of João Abreu, MSc student in Informatics Engineering at the University of Minho.
 
-## Como funciona
+**Live:** [jp1823.github.io](https://jp1823.github.io)
 
-O Astro transforma as páginas e o conteúdo (Markdown/JSON) em HTML estático na pasta `dist/`. Não há servidor nem base de dados: é isso que o GitHub Pages serve. Cada `git push` para `main` faz o build e publica automaticamente (`.github/workflows/deploy.yml`, 1 a 2 min).
+## Overview
 
-## Node.js local
+A static, bilingual (Portuguese and English) site that presents selected projects and a résumé. It is built with [Astro](https://astro.build), ships no client-side JavaScript beyond a small language redirect, and is deployed to GitHub Pages through GitHub Actions on every push to `main`.
 
-O Node está numa pasta portátil, `.node/`, dentro do projeto (não vai para o Git, nem altera o sistema). O ficheiro `npm.cmd` na raiz usa esse Node, por isso no PowerShell ou no CMD, dentro desta pasta:
+## Tech stack
 
-```
-.\npm install        # só da primeira vez (ou após clonar)
-.\npm run dev        # site em http://localhost:4321, atualiza ao gravar
-.\npm run build      # gera dist/ (o mesmo que o GitHub faz)
-```
-
-Se clonares o repositório noutro PC, instala o Node.js LTS normalmente e usa `npm` em vez de `.\npm`.
-
-## Editar conteúdo (sem mexer em código)
-
-| Quero… | Ficheiro |
+| Area | Choice |
 |---|---|
-| Mudar nome, apresentação, links, CV | `src/content/cv/pt.json` e `src/content/cv/en.json` |
-| Adicionar um projeto | criar `src/content/projects/pt/<nome>.md` **e** `src/content/projects/en/<nome>.md` (mesmo `<nome>`) |
-| Mudar textos fixos (menu, botões) | `src/i18n/ui.ts` |
-| Mudar cores / fontes | topo de `src/styles/global.css` |
+| Framework | Astro (static output) |
+| Language | TypeScript |
+| Content | Astro content collections (Markdown and JSON, schema-validated) |
+| Styling | Plain CSS with custom properties |
+| Typography | JetBrains Mono and IBM Plex Sans, self-hosted |
+| Hosting | GitHub Pages |
+| CI/CD | GitHub Actions (`withastro/action`, `actions/deploy-pages`) |
 
-### Cabeçalho de um projeto
+## Features
 
-```md
----
-title: Nome do projeto
-summary: Uma frase sobre o que é.
-year: 2025
-context: UMinho · UC          # opcional
-stack: [Python, Docker]
-repo: https://github.com/Jp1823/repo   # opcional; sem repo aparece "código privado"
-demo: https://...                      # opcional
-featured: true                # aparece no início (máx. 3)
-order: 1                      # opcional, ordem na lista
----
+- Portuguese and English versions with localized routes (`/pt/projetos/`, `/en/projects/`) and `hreflang` links
+- Project pages generated from Markdown files
+- Résumé rendered from structured JSON data
+- Sitemap, canonical URLs and Open Graph metadata
+- Accessible markup: semantic HTML, skip link, visible focus states, reduced-motion support
+- Responsive layout with no external runtime dependencies
 
-Texto em Markdown…
-```
-
-### PDF do CV
-
-Coloca `cv-pt.pdf` e `cv-en.pdf` em `public/cv/` e adiciona `"pdf": "/cv/cv-pt.pdf"` (ou `cv-en.pdf`) ao respetivo JSON. Aparece um botão de download na página do CV.
-
-## Publicar pela primeira vez
-
-1. Criar no GitHub o repositório **`Jp1823.github.io`** (público, vazio).
-2. Fazer push deste projeto para `main`.
-3. No repositório: *Settings → Pages → Build and deployment → Source: **GitHub Actions***.
-4. O site fica em https://jp1823.github.io.
-
-## Estrutura
+## Project structure
 
 ```
 src/
-├─ content/          conteúdo editável (projetos .md, cv .json)
-├─ content.config.ts formato esperado do conteúdo
-├─ i18n/ui.ts        textos PT/EN e rotas
-├─ views/            páginas (início, projetos, projeto, cv)
-├─ pages/            rotas /pt/… e /en/… (só chamam as views)
-├─ components/       menu, rodapé, lista de projetos
-├─ layouts/Base.astro  <head>, SEO, estrutura comum
-└─ styles/global.css   cores, tipografia
+├── content/              Projects (Markdown) and résumé (JSON), one file per language
+├── content.config.ts     Content schemas
+├── i18n/ui.ts            Interface strings and localized routes
+├── views/                Page templates (home, projects, project, résumé)
+├── pages/                Route entry points for /pt and /en
+├── components/           Navigation, footer, project list
+├── layouts/Base.astro    Shared document head and layout
+└── styles/global.css     Design tokens and base styles
 ```
+
+## Development
+
+Requires Node.js 22 or later.
+
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # static output in dist/
+npm run preview   # serve the production build locally
+```
+
+## Content
+
+| Content | Location |
+|---|---|
+| Résumé and profile links | `src/content/cv/pt.json`, `src/content/cv/en.json` |
+| Projects | `src/content/projects/pt/<slug>.md`, `src/content/projects/en/<slug>.md` |
+| Interface text | `src/i18n/ui.ts` |
+
+Each project uses the following front matter:
+
+```yaml
+title: Project name
+summary: One-sentence description.
+year: 2025
+context: Course or organization        # optional
+stack: [Python, Docker]
+repo: https://github.com/Jp1823/repo   # optional
+demo: https://example.com              # optional
+featured: true                         # shown on the home page
+order: 1                               # optional sort order
+```
+
+## Deployment
+
+Every push to `main` triggers `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages. The repository's Pages source must be set to **GitHub Actions**.
+
+## License
+
+© João Abreu. All rights reserved.
